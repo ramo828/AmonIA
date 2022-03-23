@@ -5,7 +5,7 @@ def load(_number, prefix):
     global allNumb
     lib.setPrefix(prefix)
     if(len(_number) == 7):
-        allNumb=allNumb+lib.loadData(0,_number)
+        allNumb=allNumb+""+lib.loadData(0,_number)
         print(_number)
 
 try:
@@ -24,5 +24,4 @@ for numb in nData.split("\n"):
         load(numb[3:10],pref)
     else:
         load(numb,"55")
-
 w.write(allNumb.replace(" ",""))

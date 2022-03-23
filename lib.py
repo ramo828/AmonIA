@@ -22,11 +22,11 @@ headers = {'content-type': 'application/json',          # Content type json
 
 def setPrefix(_prefix):
     global categoryKey
+    global prefix
     if(_prefix == 55):
         categoryKey = "sadə";                                   # Sade Nomreleri
-    else:
+    elif(_prefix == 99):
         categoryKey = "sadə099";                                   # Sade Nomreleri
-    global prefix
     prefix = _prefix
 
 
@@ -41,16 +41,6 @@ def conBakcell(page, number):
     return r
 
 
-def loadTotal():
-    totalNumb = 0
-    try:
-        r = conBakcell(0)
-        totalJSON = json.loads(r.text);
-        for tData in totalJSON:
-            totalNumb = int((tData["totalElements"]))
-        return totalNumb
-    except TypeError:
-        print("Key xətalıdır!")
 
 
 def loadData(page, number):
