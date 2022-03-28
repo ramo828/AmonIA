@@ -1,6 +1,3 @@
-from tqdm import tqdm
-
-
 count = 0                                          # modulation counter
 
 
@@ -33,32 +30,32 @@ def say(data):
 
 def one(data):
     _data = ""
-    for i in tqdm(range(10)):
+    for i in range(10):
         _data=_data+"\n"+say(data).format(i)
     return _data
 
 def two(data):
     _data = ""
-    for i in tqdm(range(10)):
-        for j in tqdm(range(10)):
+    for i in range(10):
+        for j in range(10):
             _data=_data+"\n"+say(data).format(i,j)
     return _data
 
 def three(data):
     _data = ""
-    for i in tqdm(range(10)):
-        for j in tqdm(range(10)):
-            for k in tqdm(range(10)):
+    for i in range(10):
+        for j in range(10):
+            for k in range(10):
                 _data=_data+"\n"+say(data).format(i,j,k)
     return _data
 
 
 def four(data):
     _data = ""
-    for i in tqdm(range(10)):
-        for j in tqdm(range(10)):
-            for k in tqdm(range(10)):
-                for n in tqdm(range(10)):
+    for i in range(10):
+        for j in range(10):
+            for k in range(10):
+                for n in range(10):
                     _data=_data+"\n"+say(data).format(i,j,k,n)
     return _data
 
@@ -75,5 +72,3 @@ def makeNumb(data):
     elif(sayX == 4):
         return four(data)
 
-
-print(makeNumb("7745513"))

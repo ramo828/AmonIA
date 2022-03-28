@@ -1,4 +1,6 @@
 import lib
+from tqdm import tqdm
+
 allNumb = ""
 nData = ""
 def load(_number, prefix):
@@ -9,7 +11,7 @@ def load(_number, prefix):
         print(_number)
 
 try:
-    r = open("numbersIN.txt","r",encoding="UTF-8")
+    r = open("input/numbersIN.txt","r",encoding="UTF-8")
     nData = r.read()
 except FileNotFoundError:
     print("Fayl Tapilmadi")
@@ -18,7 +20,7 @@ w = open("output/numbersOUT.txt","w",encoding="UTF-8")
 
 
 
-for numb in nData.split("\n"):
+for numb in tqdm(nData.split("\n")):
     if(numb.startswith("[")):
         pref = int(numb[1:3])
         load(numb[3:10],pref)

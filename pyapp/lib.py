@@ -20,6 +20,14 @@ headers = {'content-type': 'application/json',          # Content type json
 'Authorization':bKey,
 'Connection':'keep-alive'}
 
+dataVcard = [
+ "BEGIN:VCARD\n"
+,"N:","FN:"
+,"TEL;TYPE=WORK,MSG:"
+,"EMAIL;TYPE=INTERNET:\n"
+,"END:VCARD\n"]
+
+
 def setPrefix(_prefix):
     global categoryKey
     global prefix
@@ -40,7 +48,19 @@ def conBakcell(page, number):
     headers=headers)                                        # Header
     return r
 
-
+def conv_numeric(counter):
+    sonluq = ["a","b","c","d","e","f","g"]
+    clone = ""
+    for i in range(counter):
+        if(i<10):
+            clone = "_"+sonluq[0]+str(i)
+        elif(i<100):
+            clone = "_"+sonluq[1]+str(i)
+        elif(i<1000):
+            clone = "_"+sonluq[2]+str(i)
+        elif(i<10000):
+            clone = "_"+sonluq[3]+str(i)
+    return clone;
 
 
 def loadData(page, number):
@@ -53,3 +73,15 @@ def loadData(page, number):
     for i2 in dataTwo:
         dataFour = dataFour+str(i2["msisdn"])+"\n"
     return dataFour
+try:
+    w = open("output/contact.vcf","w")
+except FileNotFoundError:
+    pass
+def vcardWrite(w,contactName,prefix,pre,dataFour,count1):
+    w.write(
+    dataVcard[0]
+	+dataVcard[1]+contactName+conv_numeric(count1)+"\n"	
+	+dataVcard[2]+contactName+conv_numeric(count1)+"\n"
+	+dataVcard[3]+prefix[pre]+dataFour[0:7]+"\n"
+	+dataVcard[4]
+	+dataVcard[5])
