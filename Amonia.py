@@ -14,7 +14,7 @@ try:
 except FileNotFoundError:
     print("Fayl Tapilmadi")
 
-w = open("numbersOUT.txt","w",encoding="UTF-8")
+w = open("output/numbersOUT.txt","w",encoding="UTF-8")
 
 
 
