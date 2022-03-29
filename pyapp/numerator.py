@@ -10,7 +10,8 @@ prefEnd = 3
 contactName = lib.readContactName()
 split = "-"
 defDir = "output/"
-androDir = "/sdcard/work/"
+androDir = "output/"
+#androDir = "/sdcard/work/"
 setDir = ""
 
 if(lib.detectOS()):
