@@ -1,16 +1,28 @@
 import lib
 import lib_num
 from tqdm import tqdm
+import time
 
-prefixAz = ["+99450","+99451","+99410","+99499","+99470","+99477"]
+tdata = time.asctime()
+prefixAz = ["+99450","+99451","+99470","+99477"]
 prefBegin = 0
-prefEnd = 5
-contactName = "Metros"
+prefEnd = 3
+contactName = lib.readContactName()
 split = "-"
+defDir = "output/"
+androDir = "/sdcard/work/"
+setDir = ""
 
-w = open("output/contacts.vcf","w+")
-w1 = open("output/contacts.txt","w+")
+if(lib.detectOS()):
+    setDir = androDir
+else:
+    setDir = defDir
 
+try:
+    w = open("{0}contacts-{1}.vcf".format(setDir,tdata),"w+")
+    w1 = open("{0}contacts-{1}.txt".format(setDir,tdata),"w+")
+except FileNotFoundError:
+    print("Qovluq Tapilmadı")
 def makeTXT(series):
     count = 0
     dataT = lib_num.makeNumb(series)
@@ -18,6 +30,7 @@ def makeTXT(series):
         w1.write(tx[0:3]+split+tx[3:5]+split+tx[5:7]+"\n")
         count=count+1
     print("\nHazırlandı: "+str(count))
+    w1.close()
 
 
 
@@ -33,8 +46,9 @@ def makeVCF(series):
                 dataFour,                                       # Yekun data
                 count)                                          # Kontaktin ad ardicilligi
                 count=count+1
-    print("\nHazırlandı: "+str(count))
-    print("\nÜmumi: "+str(count*6))
+    print("\nHazırlandı: "+str(count-1))
+    print("\nÜmumi: "+str(count*3-3))
+    w.close()
 
 print("\n\t-----------------------\n")
 series = input("Nomreni daxil edin: ")

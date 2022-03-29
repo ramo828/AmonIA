@@ -27,6 +27,23 @@ dataVcard = [
 ,"EMAIL;TYPE=INTERNET:\n"
 ,"END:VCARD\n"]
 
+defaultContactName = "Metros"
+dirs = os.getcwd()+"/.config/"                           # Oldugun qovluq
+def detectOS():
+    if(subprocess.check_output(['uname', '-o']).strip() == b'Android'):
+        return True
+    else:
+        return False
+
+def readContactName():
+    configData = ""
+    if(os.path.exists(dirs+"contact.name")):
+        config = open(dirs+"contact.name","r")
+        configData = config.read()
+        return configData
+    else:
+        configData = defaultContactName
+        return configData
 
 def setPrefix(_prefix):
     global categoryKey
@@ -73,10 +90,7 @@ def loadData(page, number):
     for i2 in dataTwo:
         dataFour = dataFour+str(i2["msisdn"])+"\n"
     return dataFour
-try:
-    w = open("output/contact.vcf","w")
-except FileNotFoundError:
-    pass
+
 def vcardWrite(w,contactName,prefix,pre,dataFour,count1):
     w.write(
     dataVcard[0]
