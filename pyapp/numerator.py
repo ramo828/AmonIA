@@ -6,7 +6,7 @@ import time
 tdata = time.asctime()
 prefixAz = ["+99450","+99451","+99470","+99477"]
 prefBegin = 0
-prefEnd = 3
+prefEnd = 4
 contactName = lib.readContactName()
 split = "-"
 defDir = "output/"
@@ -30,7 +30,7 @@ def makeTXT(series):
     for tx in tqdm(dataT.split('\n')):
         w1.write(tx[0:3]+split+tx[3:5]+split+tx[5:7]+"\n")
         count=count+1
-    print("\nHazırlandı: "+str(count))
+    print("\nHazırlandı: "+str(count-1))
     w1.close()
 
 
@@ -48,7 +48,7 @@ def makeVCF(series):
                 count)                                          # Kontaktin ad ardicilligi
                 count=count+1
     print("\nHazırlandı: "+str(count-1))
-    print("\nÜmumi: "+str(count*3-3))
+    print("\nÜmumi: "+str(count*4-4))
     w.close()
 
 print("\n\t-----------------------\n")
