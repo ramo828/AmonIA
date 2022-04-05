@@ -8,6 +8,7 @@ clear
 echo "Compile edilir..."
 sleep 1
 clear
-g++ amonia.cpp -o amonia
+cmake .
+make
 
 
