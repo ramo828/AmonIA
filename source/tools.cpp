@@ -18,7 +18,17 @@ string split = ">> ";
 string fileName = "input/numbersIN.txt";
 
 void tutils::inData() {
-	ofstream yaz;                                    // fayl obyektini cagir
+	ofstream yaz;					 // fayl obyektini cagir
+	cout << "\t--------------------------\n"
+		"\tSadə axtarış\n"
+		"\tMəsələn; 830xx66 (Sadecə 055 üçün!)\n"
+		"\tPrefixə görə axtarış\n"
+		"\tMəsələn; [99830xx66; [55830xx66\n"
+		"\tKategoriya və Prefix seçərək axtarış\n"
+		"\tMəsələn; |1[55830xx66; |1[99830xx66\n"
+	        "\tQeyd: Kategoriya 1dən başlayır\n"
+		"\tHər yeni seriya daxil etdikcə enteri sıxın\n"
+		"\tSiyahını hazırlayıb çıxmaq üçün :cix yazıb enter sıxın\n"	<< endl;
 	cout << "Nömrələri daxil edin: " << endl;        // Label
 	while(n != ":cix"){                              // yazildiqda durdur
 		cout << split;                               // ayirici goster
