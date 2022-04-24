@@ -104,9 +104,9 @@ def setPrefix(_prefix,category):
         if(category == 0):
             categoryKey = "sadə";                                         # Sade Nomreleri
         elif(category == 1):
-            categoryKey = "xüsusi1";                                      # Xususi 1 Nomreleri
+            categoryKey = "xüsusi2";                                      # Xususi 1 Nomreleri
         elif(category == 2):
-            categoryKey = "xüsusi2";                                      # Xususi 2 Nomreleri
+            categoryKey = "xüsusi1";                                      # Xususi 2 Nomreleri
         else:
             raise TypeError("Xətalı seçim!")
     elif(_prefix == 99):

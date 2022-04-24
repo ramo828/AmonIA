@@ -35,7 +35,7 @@ for numb in tqdm(nData.split("\n")):
             step=3
             endstep=5
             loadStep=2
-            categoryValue = int(numb[1:2])-1
+            categoryValue = int(numb[1:2])
         else:
             step=1
             endstep=3
