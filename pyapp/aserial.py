@@ -29,6 +29,14 @@ endstep = 3
 loadStep = 0
 categoryValue = 0
 
+def dataSplit(data):
+    data0 = ""
+    for i in data.split("\n"):
+        data0 +="\n"+i[0:2]+" "+i[2:5]+" "+i[5:7]+" "+i[7:9]
+    return data0
+
+
+
 for numb in tqdm(nData.split("\n")):
     if(numb.find("[") != -1):
         if(numb.find("|") != -1):
@@ -44,4 +52,4 @@ for numb in tqdm(nData.split("\n")):
         load(numb[endstep:10+loadStep],pref,categoryValue)
     else:
         load(numb,"55",0)
-w.write(allNumb.replace(" ",""))
+w.write(dataSplit(allNumb.replace(" ","")))
