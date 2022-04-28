@@ -20,8 +20,7 @@ try:
 except FileNotFoundError:
     lib.red()
     print("Fayl Tapilmadi")
-
-w = open("output/numbersOUT.txt","w",encoding="UTF-8")
+w = open("output/numbersOUT.html","w",encoding="UTF-8")
 
 
 step = 1
@@ -38,18 +37,30 @@ def dataSplit(data):
 
 
 for numb in tqdm(nData.split("\n")):
-    if(numb.find("[") != -1):
-        if(numb.find("|") != -1):
-            step=3
-            endstep=5
-            loadStep=2
-            categoryValue = int(numb[1:2])
+    if(numb.find("[") != -1):                  # Eger [ varsa
+        if(numb.find("|") != -1):              # Eger | varsa
+            step=3                             # Eger | varsa 3 addim ireli get
+            endstep=5                          # ve son addimi 5'e ayarla
+            loadStep=2                         # Nomre datasinin son deyerini 2 addim artir
+            categoryValue = int(numb[1:2])     # Kategori deyeri
         else:
-            step=1
-            endstep=3
-            loadStep=0
-        pref = int(numb[step:endstep])
-        load(numb[endstep:10+loadStep],pref,categoryValue)
+            step=1                             # deyilse addimi 1'e ayarla
+            endstep=3                          # son addimi 3 et 
+            loadStep=0                         # son deyeri 0 olaraq artir(deyisdirme)
+        pref = int(numb[step:endstep])         # prefix deyerini al
+        load(numb[endstep:10+loadStep],
+        pref,categoryValue)
+        for splData in tqdm(allNumb.split("\n")):
+            if(len(splData) < 7):
+                pass
+            else:
+                lib.setData(splData[2:],lib.prefDigit(pref),categoryValue)
     else:
         load(numb,"55",0)
-w.write(dataSplit(allNumb.replace(" ","")))
+        for splData in tqdm(allNumb.split("\n")):
+            if(len(splData) < 7):
+                pass
+            else:
+                lib.setData(splData[2:],lib.prefDigit(pref),categoryValue)
+
+w.write(lib.toHTML())

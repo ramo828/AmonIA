@@ -23,6 +23,135 @@ category["platin"] = "1582551437850968791";                # Platin key
 categoryKey099 = "bürünc"                                  # Buruc nomreler
 prefixSel = ["55","99"]
 
+######################HTML####################################################
+html = [
+    """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container-fluid">
+    <div class="p-3 mb-2 #C5CAE9 text-dark">
+    <table class="table table-success table-striped">
+        <td>Prefix</td>
+        <td>Kategoriya</td>
+        <td>Nömrə</td>
+        <td>Qiymət</td>
+    """,
+    """
+      </table>
+    </div>
+</div>
+<br>
+<footer class="bg-light text-center text-lg-start">
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: #90CAF9;">
+    © 2022 BlackCatEmirates:
+    <a class="text-dark" href="https://github.com/ramo828/">RamoSoft</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+<script language='JavaScript1.2'>	
+function disableselect(e)
+{	
+return false	
+}	
+function reEnable(){	
+return true	
+}	
+document.onselectstart=new Function ("return false")	
+if (window.sidebar)
+{	
+document.onmousedown=disableselect	
+document.onclick=reEnable	
+}	
+</script>  
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</body>
+</html>
+    """,
+]
+
+
+cat055 = [
+            "Sadə",
+            "Xüsusi1",
+            "Xüsusi2",
+        ]
+
+cat099 = [
+            "Sadə",
+            "Bürünc",
+            "Gümüş",
+            "Qızıl",
+            "Platin",
+            ]
+
+cat = ""
+
+
+pref = [
+            "055",
+            "099",
+]
+
+cost055 = [
+            "15AZN",
+            "85AZN",
+            "135AZN",
+    ]
+
+cost099 = [
+            "15AZN",
+            "140AZN",
+            "250AZN",
+            "750AZN",
+            "2500AZN",
+    ]
+prefG = ""
+cost = ""
+data = ""
+
+def prefDigit(_data):
+    if(_data == 55):
+        return 0
+    elif(_data == 99):
+        return 1
+
+###############################END_HTML##################################################
+
+
+def setData(_data, prefID,catID):
+    global data
+    global cat
+    global cost
+    global prefG
+    if(prefID == 0):
+        prefG = pref[prefID]
+        cat = cat055[catID]
+        cost = cost055[catID]
+    elif(prefID == 1):
+        prefG = pref[prefID]
+        cat = cat099[catID]
+        cost = cost099[catID]
+    data +="""
+    <tr>\n
+            <td>{0}</td>
+            <td>{1}</td>
+            <td>{2}</td>
+            <td>{3}</td>
+    </tr>
+    """.format(cat,prefG,_data,cost)
+
+def toHTML():
+    dat1 = html[0]+data+html[1]
+    return dat1
 
 url = "https://public-api.azerconnect.az/msbkcposappreservation/api/freemsisdn-nomre/search";
 
