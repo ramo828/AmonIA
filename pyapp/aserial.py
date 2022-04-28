@@ -31,7 +31,7 @@ categoryValue = 0
 def dataSplit(data):
     data0 = ""
     for i in data.split("\n"):
-        data0 +="\n"+i[0:2]+" "+i[2:5]+" "+i[5:7]+" "+i[7:9]
+        data0 +="\n"+i[0:3]+" "+i[3:5]+" "+i[5:7]
     return data0
 
 
@@ -54,13 +54,13 @@ for numb in tqdm(nData.split("\n")):
             if(len(splData) < 7):
                 pass
             else:
-                lib.setData(splData[2:],lib.prefDigit(pref),categoryValue)
+                lib.setData(dataSplit(splData[2:]),lib.prefDigit(pref),categoryValue)
     else:
         load(numb,"55",0)
         for splData in tqdm(allNumb.split("\n")):
             if(len(splData) < 7):
                 pass
             else:
-                lib.setData(splData[2:],lib.prefDigit(pref),categoryValue)
+                lib.setData(dataSplit(splData[2:]),lib.prefDigit(pref),categoryValue)
 
 w.write(lib.toHTML())

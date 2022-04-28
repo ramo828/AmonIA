@@ -39,10 +39,9 @@ html = [
     <div class="container-fluid">
     <div class="p-3 mb-2 #C5CAE9 text-dark">
     <table class="table table-success table-striped">
-        <td>Prefix</td>
-        <td>Kategoriya</td>
-        <td>Nömrə</td>
-        <td>Qiymət</td>
+        <td><b>Kategoriya</b></td>
+        <td><b>Nömrə</td>
+        <td><b>Qiymət</b></td>
     """,
     """
       </table>
@@ -102,17 +101,17 @@ pref = [
 ]
 
 cost055 = [
-            "15AZN",
-            "85AZN",
-            "135AZN",
+            "15 ₼",
+            "85 ₼",
+            "135 ₼",
     ]
 
 cost099 = [
-            "15AZN",
-            "140AZN",
-            "250AZN",
-            "750AZN",
-            "2500AZN",
+            "15 ₼",
+            "140 ₼",
+            "250 ₼",
+            "750 ₼",
+            "2500 ₼",
     ]
 prefG = ""
 cost = ""
@@ -143,8 +142,7 @@ def setData(_data, prefID,catID):
     data +="""
     <tr>\n
             <td>{0}</td>
-            <td>{1}</td>
-            <td>{2}</td>
+            <td>{1} {2}</td>
             <td>{3}</td>
     </tr>
     """.format(cat,prefG,_data,cost)
