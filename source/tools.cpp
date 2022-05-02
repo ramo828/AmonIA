@@ -66,22 +66,26 @@ void tutils::mainPY() {
 	cout << "\t----------------\n\t[---RamoSOFT---]\n\t----------------\n";
 	cout << "\t---AMONIA---" << endl;
 	cout << 
-	"\n\t1 - Numerator"
+	"\n\t1 - Numerator (text)"
 	"\n\t----------"
-	"\n\t2 - Auto Serializer"
+	"\n\t2 - Numerator (html)"
 	"\n\t----------"
-	"\n\t3 - Siyahı hazırla"
+	"\n\t3 - Auto Serializer"
+	"\n\t----------"
+	"\n\t4 - Siyahı hazırla"
 	"\n\t----------"
 	"\n\t0 - Exit\n>> ";
 	cin >> choise;
 	switch(choise) {
 		case 0: exit(0);
 				break;
-		case 1: runPY("pyapp/aserial.py");
+		case 1: runPY("pyapp/aserial.py txt");
 				break;
-		case 2: runPY("pyapp/numerator.py");
+		case 2: runPY("pyapp/aserial.py html");
 				break;
-		case 3: inData();
+		case 3: runPY("pyapp/numerator.py");
+				break;
+		case 4: inData();
 				break;
 		default:
 				cout << "Bilinməyən əmr!" << endl;

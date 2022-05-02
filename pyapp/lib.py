@@ -7,7 +7,7 @@ import subprocess
 import json
 from colorama import Fore, Back, Style
 
-bKey ="Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJNQUlOIiwiZXhwIjoxNjUxMTYzMjQxfQ.nSGnhZ5Q88X7ff77PkHCWAlBEJJfzks19-gMOG4Wu9M1Pz_qvlTnFEB4iMFLXt6xoDRpGKJuNj2iMdmZju1S3Q"
+bKey ="Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJNQUlOIiwiZXhwIjoxNjUzMDAyODQ1fQ.zA2ibHv4fGfNlP_3AlcaGZ6ROuLLBBSLasYXlqna87YktQNXgY4XzYf5lTqLc-42YKbZse4alB3fwAE3ZuTAJw"
 category = dict()
 categoryKey = "sadə";                                      # Sade Nomreleri
 category["sadə"] = "1429263300716842758";                  # Sade key
@@ -39,6 +39,7 @@ html = [
     <div class="container-fluid">
     <div class="p-3 mb-2 #C5CAE9 text-dark">
     <table class="table table-success table-striped">
+        <td><b>Sıra</td>
         <td><b>Kategoriya</b></td>
         <td><b>Nömrə</td>
         <td><b>Qiymət</b></td>
@@ -126,7 +127,7 @@ def prefDigit(_data):
 ###############################END_HTML##################################################
 
 
-def setData(_data, prefID,catID):
+def setData(no,_data, prefID,catID):
     global data
     global cat
     global cost
@@ -142,10 +143,11 @@ def setData(_data, prefID,catID):
     data +="""
     <tr>\n
             <td>{0}</td>
-            <td>{1} {2}</td>
-            <td>{3}</td>
+            <td>{1}</td>
+            <td>{2} {3}</td>
+            <td>{4}</td>
     </tr>
-    """.format(cat,prefG,_data,cost)
+    """.format(no,cat,prefG,_data,cost)
 
 def toHTML():
     dat1 = html[0]+data+html[1]
@@ -280,13 +282,13 @@ def conv_numeric(counter):
 
 def loadData(page, number):
     r = conBakcell(page, number)
-    dataFour = ""
+    dataFour = []
     dataTwo = ""
     data = json.loads(r.text);
     for i in data:
         dataTwo = (i["freeMsisdnList"])
     for i2 in dataTwo:
-        dataFour = dataFour+str(i2["msisdn"])+"\n"
+        dataFour.append(str(i2["msisdn"]))
     return dataFour
 
 def vcardWrite(w,contactName,prefix,pre,dataFour,count1):
