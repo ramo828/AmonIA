@@ -105,6 +105,8 @@ def setBanner(_data, prefID,catID):
         prefG = pref[prefID]
         cost = cost099[catID]
     if(int(cost) > 999):
+        tag = "h4"
+    elif(int(cost) > 99):
         tag = "h3"
     else:
         tag = "h2"

@@ -26,9 +26,21 @@
     -webkit-transform: rotate(-6deg);
  }
  h3 { 
+   /* 100den yuxari */
+   position: absolute; 
+   top: 310px; 
+   left: 195px;
+   color:white; 
+   font-family: "Goudy Bookletter 1911", sans-serif;
+   font-size: 60px; 
+   font-weight:bold;
+   -webkit-transform: rotate(-6deg);
+
+}
+ h4 { 
     /* 1000den yuxari */
     position: absolute; 
-    top: 327px; 
+    top: 310px; 
     left: 185px;
     color:white; 
     font-family: "Goudy Bookletter 1911", sans-serif;
