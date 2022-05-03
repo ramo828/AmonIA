@@ -70,9 +70,11 @@ void tutils::mainPY() {
 	"\n\t----------"
 	"\n\t2 - Numerator (html)"
 	"\n\t----------"
-	"\n\t3 - Auto Serializer"
+	"\n\t3 - Numerator (Banner)"
 	"\n\t----------"
-	"\n\t4 - Siyahı hazırla"
+	"\n\t4 - Auto Serializer"
+	"\n\t----------"
+	"\n\t5 - Siyahı hazırla"
 	"\n\t----------"
 	"\n\t0 - Exit\n>> ";
 	cin >> choise;
@@ -83,9 +85,11 @@ void tutils::mainPY() {
 				break;
 		case 2: runPY("pyapp/aserial.py html");
 				break;
-		case 3: runPY("pyapp/numerator.py");
+		case 3: runPY("pyapp/aserial.py html1");
 				break;
-		case 4: inData();
+		case 4: runPY("pyapp/numerator.py");
+				break;
+		case 5: inData();
 				break;
 		default:
 				cout << "Bilinməyən əmr!" << endl;

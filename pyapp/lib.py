@@ -5,6 +5,7 @@ from typing import Type
 import requests
 import subprocess
 import json
+import parser as ps
 from colorama import Fore, Back, Style
 
 bKey ="Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJNQUlOIiwiZXhwIjoxNjUzMDAyODQ1fQ.zA2ibHv4fGfNlP_3AlcaGZ6ROuLLBBSLasYXlqna87YktQNXgY4XzYf5lTqLc-42YKbZse4alB3fwAE3ZuTAJw"
@@ -23,60 +24,7 @@ category["platin"] = "1582551437850968791";                # Platin key
 categoryKey099 = "bürünc"                                  # Buruc nomreler
 prefixSel = ["55","99"]
 
-######################HTML####################################################
-html = [
-    """
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <title>Document</title>
-</head>
-<body>
-    <div class="container-fluid">
-    <div class="p-3 mb-2 #C5CAE9 text-dark">
-    <table class="table table-success table-striped">
-        <td><b>Sıra</td>
-        <td><b>Kategoriya</b></td>
-        <td><b>Nömrə</td>
-        <td><b>Qiymət</b></td>
-    """,
-    """
-      </table>
-    </div>
-</div>
-<br>
-<footer class="bg-light text-center text-lg-start">
-  <!-- Copyright -->
-  <div class="text-center p-3" style="background-color: #90CAF9;">
-    © 2022 BlackCatEmirates:
-    <a class="text-dark" href="https://github.com/ramo828/">RamoSoft</a>
-  </div>
-  <!-- Copyright -->
-</footer>
-<script language='JavaScript1.2'>	
-function disableselect(e)
-{	
-return false	
-}	
-function reEnable(){	
-return true	
-}	
-document.onselectstart=new Function ("return false")	
-if (window.sidebar)
-{	
-document.onmousedown=disableselect	
-document.onclick=reEnable	
-}	
-</script>  
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-</body>
-</html>
-    """,
-]
+
 
 
 cat055 = [
@@ -102,17 +50,17 @@ pref = [
 ]
 
 cost055 = [
-            "15 ₼",
-            "85 ₼",
-            "135 ₼",
+            "15",
+            "85",
+            "135",
     ]
 
 cost099 = [
-            "15 ₼",
-            "140 ₼",
-            "250 ₼",
-            "750 ₼",
-            "2500 ₼",
+            "15",
+            "140",
+            "250",
+            "750",
+            "2500",
     ]
 prefG = ""
 cost = ""
@@ -123,9 +71,6 @@ def prefDigit(_data):
         return 0
     elif(_data == 99):
         return 1
-
-###############################END_HTML##################################################
-
 
 def setData(no,_data, prefID,catID):
     global data
@@ -149,8 +94,37 @@ def setData(no,_data, prefID,catID):
     </tr>
     """.format(no,cat,prefG,_data,cost)
 
+def setBanner(_data, prefID,catID):
+    global data
+    global cost
+    tag = ""
+    if(prefID == 0):
+        prefG = pref[prefID]
+        cost = cost055[catID]
+    elif(prefID == 1):
+        prefG = pref[prefID]
+        cost = cost099[catID]
+    if(int(cost) > 999):
+        tag = "h3"
+    else:
+        tag = "h2"
+    data += """
+<body>
+  <div class="image">
+    <img src="../img/77.jpg" alt="" height=550/>
+     <h1>{0} {1}</h1>
+     <{3}>{2}</{3}>
+  </div>
+  <hr>
+    """.format(prefG,_data,cost,tag)
+
+
 def toHTML():
-    dat1 = html[0]+data+html[1]
+    dat1 = ps.getHtmlData(0)+ps.getHtmlData(1)+data+ps.getHtmlData(2)+ps.getHtmlData(3)+ps.getHtmlData(4)
+    return dat1
+
+def toHTML1():
+    dat1 = ps.getHtmlData(0)+data+ps.getHtmlData(2)+ps.getHtmlData(4)
     return dat1
 
 url = "https://public-api.azerconnect.az/msbkcposappreservation/api/freemsisdn-nomre/search";

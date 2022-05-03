@@ -4,6 +4,10 @@ import sys
 
 if(sys.argv[1] == "html"):
     text = False
+    banner = False
+elif(sys.argv[1] == "html1"):
+    text = False
+    banner = True
 elif(sys.argv[1] == "txt"):
     text = True
 else:
@@ -12,7 +16,11 @@ else:
 allNumb = ""
 allNumbText = ""
 nData = ""
-
+fileName = [
+    'output/numbersOUT.txt',
+    'output/numbersOUT.html',
+]
+fileNameIndex = 0
 step = 1
 endstep = 3
 loadStep = 0
@@ -36,9 +44,11 @@ except FileNotFoundError:
     lib.red()
     print("Fayl Tapilmadi")
 if(text):
-    w = open("output/numbersOUT.txt","w",encoding="UTF-8")
+    fileNameIndex = 0
 else:
-    w = open("output/numbersOUT.html","w",encoding="UTF-8")
+    fileNameIndex = 1
+
+w = open(fileName[fileNameIndex],"w",encoding="UTF-8")
 
 def dataSplit(data):
     data0 = ""
@@ -78,7 +88,11 @@ for numb in tqdm(nData.splitlines()):          # Fayldaki melumatlari oxu
                 if(text):
                     allNumbText+="\n"+splData
                 else:
-                    lib.setData(htmlNumb,dataSplit(splData[2:]),lib.prefDigit(pref),categoryValue)
+                    if(banner):
+                        lib.setBanner(dataSplit(splData[2:]),lib.prefDigit(pref),categoryValue)
+                    else:
+                        lib.setData(htmlNumb,dataSplit(splData[2:]),lib.prefDigit(pref),categoryValue)
+
             htmlNumb+=1                                               # Nomre siralamasi
 
     else:
@@ -91,12 +105,20 @@ for numb in tqdm(nData.splitlines()):          # Fayldaki melumatlari oxu
                 if(text):
                     allNumbText+="\n"+splData
                 else:
-                    lib.setData(htmlNumb,dataSplit(splData[2:]),lib.prefDigit(pref),categoryValue)
+                    if(banner):
+                        lib.setBanner(dataSplit(splData[2:]),lib.prefDigit(pref),categoryValue)
+                    else:
+                        lib.setData(htmlNumb,dataSplit(splData[2:]),lib.prefDigit(pref),categoryValue)
+
             htmlNumb+=1                                              # Nomre siralamasi
 
 print("\nÜmumi nömrə sayı: "+str(htmlNumb))
+print("\nFaylın adresi: "+fileName[fileNameIndex])
 
 if(text):
     w.write(allNumbText)
 else:
-    w.write(lib.toHTML())
+    if(banner):
+        w.write(lib.toHTML1())
+    else:
+        w.write(lib.toHTML())
