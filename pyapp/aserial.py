@@ -1,13 +1,20 @@
 import lib
 from tqdm import tqdm
 import sys
+import csv
 
 if(sys.argv[1] == "html"):
     text = False
     banner = False
+    csv_bool = False
 elif(sys.argv[1] == "html1"):
     text = False
+    csv_bool = False
     banner = True
+elif(sys.argv[1] == "csv"):
+    text = False
+    banner = False
+    csv_bool = True
 elif(sys.argv[1] == "txt"):
     text = True
 else:
@@ -19,6 +26,8 @@ nData = ""
 fileName = [
     'output/numbersOUT.txt',
     'output/numbersOUT.html',
+    'output/numbersOUT.csv',
+
 ]
 fileNameIndex = 0
 step = 1
@@ -26,6 +35,8 @@ endstep = 3
 loadStep = 0
 categoryValue = 0
 htmlNumb = 1                             # sira nomresi baslama
+
+
 
 def load(_number, prefix,category):
     global allNumb
@@ -45,6 +56,8 @@ except FileNotFoundError:
     print("Fayl Tapilmadi")
 if(text):
     fileNameIndex = 0
+elif(csv_bool):
+    fileNameIndex = 2
 else:
     fileNameIndex = 1
 
@@ -56,6 +69,15 @@ def dataSplit(data):
         data0 +="\n"+i[0:3]+" "+i[3:5]+" "+i[5:7]
     return data0
 
+if(csv_bool):
+    csv_out = csv.writer(w, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+    csv_out.writerow(["ID", "Kategoriya", "Prefix","Nömrə"])
+else:
+    pass
+
+def writeCSV(_id,_cat,_pref,_data):
+
+    csv_out.writerow([_id, _cat, _pref,_data])
 
 def counter(data):
     ccl = []
@@ -90,6 +112,12 @@ for numb in tqdm(nData.splitlines()):          # Fayldaki melumatlari oxu
                 else:
                     if(banner):
                         lib.setBanner(dataSplit(splData[2:]),lib.prefDigit(pref),categoryValue)
+                    elif(csv_bool):
+                        catN = lib.getConvData(lib.prefDigit(pref),categoryValue,1)
+                        prefN = lib.getConvData(lib.prefDigit(pref),categoryValue,0)
+                        print(catN)
+                        print(prefN)
+                        writeCSV(htmlNumb,catN,prefN,dataSplit(splData[2:]))
                     else:
                         lib.setData(htmlNumb,dataSplit(splData[2:]),lib.prefDigit(pref),categoryValue)
 
@@ -107,6 +135,10 @@ for numb in tqdm(nData.splitlines()):          # Fayldaki melumatlari oxu
                 else:
                     if(banner):
                         lib.setBanner(dataSplit(splData[2:]),lib.prefDigit(pref),categoryValue)
+                    elif(csv_bool):
+                        catN = lib.getConvData(lib.prefDigit(pref),categoryValue,1)
+                        prefN = lib.getConvData(lib.prefDigit(pref),categoryValue,0)
+                        writeCSV(htmlNumb,catN,prefN,dataSplit(splData[2:]))
                     else:
                         lib.setData(htmlNumb,dataSplit(splData[2:]),lib.prefDigit(pref),categoryValue)
 
@@ -120,5 +152,7 @@ if(text):
 else:
     if(banner):
         w.write(lib.toHTML1())
+    elif(csv_bool):
+        pass
     else:
         w.write(lib.toHTML())

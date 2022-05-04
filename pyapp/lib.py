@@ -94,6 +94,21 @@ def setData(no,_data, prefID,catID):
     </tr>
     """.format(no,cat,prefG,_data,cost)
 
+def getConvData(prefID,catID,setData):
+    global cat
+    global prefG
+    if(prefID == 0):
+        prefG = pref[prefID]
+        cat = cat099[catID]
+    elif(prefID == 1):
+        prefG = pref[prefID]
+        cat = cat099[catID]
+    if(setData == 0):
+        return prefG
+    else:
+        return cat
+
+
 def setBanner(_data, prefID,catID):
     global data
     global cost
