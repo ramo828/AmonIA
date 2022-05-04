@@ -115,8 +115,6 @@ for numb in tqdm(nData.splitlines()):          # Fayldaki melumatlari oxu
                     elif(csv_bool):
                         catN = lib.getConvData(lib.prefDigit(pref),categoryValue,1)
                         prefN = lib.getConvData(lib.prefDigit(pref),categoryValue,0)
-                        print(catN)
-                        print(prefN)
                         writeCSV(htmlNumb,catN,prefN,dataSplit(splData[2:]))
                     else:
                         lib.setData(htmlNumb,dataSplit(splData[2:]),lib.prefDigit(pref),categoryValue)
