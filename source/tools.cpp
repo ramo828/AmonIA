@@ -89,7 +89,7 @@ void tutils::mainPY() {
 				break;
 		case 3: runPY("pyapp/aserial.py html1");
 				break;
-		case 4: runPY("pyapp/aserial.py html1");
+		case 4: runPY("pyapp/aserial.py csv");
 				break;
 		case 5: runPY("pyapp/numerator.py");
 				break;
