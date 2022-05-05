@@ -17,8 +17,12 @@ elif(sys.argv[1] == "csv"):
     csv_bool = True
 elif(sys.argv[1] == "txt"):
     text = True
+    banner = False
+    csv_bool = False
 else:
     text = True
+    banner = False
+    csv_bool = False
 
 allNumb = ""
 allNumbText = ""
