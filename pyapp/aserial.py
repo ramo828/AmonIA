@@ -70,7 +70,7 @@ w = open(fileName[fileNameIndex],"w",encoding="UTF-8")
 def dataSplit(data):
     data0 = ""
     for i in data.splitlines():
-        data0 +="\n"+i[0:3]+" "+i[3:5]+" "+i[5:7]
+        data0 +="\n"+i[0:2]+i[2:7]+" "+i[7:9]+" "+i[9:11]
     return data0
 
 if(csv_bool):
@@ -159,18 +159,18 @@ for numb in tqdm(nData.splitlines()):          # Fayldaki melumatlari oxu
         load(numb[endstep:10+loadStep],
         pref,categoryValue)
 
+        prefN = lib.getConvData(lib.prefDigit(pref),categoryValue,0)
         for splData in tqdm(allNumb):
             if(len(splData) < 7):
                 pass
             else:
                 if(text):
-                    allNumbText+="\n"+splData
+                    allNumbText+="\n"+prefN+" "+splData
                 else:
                     if(banner):
                         lib.setBanner(dataSplit(splData[2:]),lib.prefDigit(pref),categoryValue)
                     elif(csv_bool):
                         # catN = lib.getConvData(lib.prefDigit(pref),categoryValue,1)
-                        prefN = lib.getConvData(lib.prefDigit(pref),categoryValue,0)
                         writeCSV("Metros "+str(htmlNumb),prefN,splData[2:])
                     else:
                         lib.setData(htmlNumb,dataSplit(splData[2:]),lib.prefDigit(pref),categoryValue)
@@ -185,7 +185,7 @@ for numb in tqdm(nData.splitlines()):          # Fayldaki melumatlari oxu
                 pass
             else:
                 if(text):
-                    allNumbText+="\n"+splData
+                        allNumbText+="\n"+prefN+" "+splData
                 else:
                     if(banner):
                         lib.setBanner(dataSplit(splData[2:]),lib.prefDigit(pref),categoryValue)
