@@ -78,6 +78,8 @@ void tutils::mainPY() {
 	"\n\t----------"
 	"\n\t6 - Siyahı hazırla"
 	"\n\t----------"
+	"\n\t7 - AvtoMesaj"
+	"\n\t----------"
 	"\n\t0 - Exit\n>> ";
 	cin >> choise;
 	switch(choise) {
@@ -94,6 +96,8 @@ void tutils::mainPY() {
 		case 5: runPY("pyapp/numerator.py");
 				break;
 		case 6: inData();
+				break;
+		case 7: system("java javatool/Robo");
 				break;
 		default:
 				cout << "Bilinməyən əmr!" << endl;
