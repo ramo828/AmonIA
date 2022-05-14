@@ -70,7 +70,10 @@ w = open(fileName[fileNameIndex],"w",encoding="UTF-8")
 def dataSplit(data):
     data0 = ""
     for i in data.splitlines():
-        data0 +="\n"+i[:2]+" "+i[2:5]+" "+i[5:7]+" "+i[7:9]
+        if(len(i) == 7):
+            data0 +="\n"+i[:3]+" "+i[3:5]+" "+i[5:7]
+        elif(len(i) == 9):
+            data0 +="\n"+i[:2]+" "+i[2:5]+" "+i[5:7]+" "+i[7:9]
     return data0
 
 if(csv_bool):
@@ -185,7 +188,7 @@ for numb in tqdm(nData.splitlines()):          # Fayldaki melumatlari oxu
                 pass
             else:
                 if(text):
-                        allNumbText+="\n"+prefN+" "+splData
+                        allNumbText+="\n"+splData
                 else:
                     if(banner):
                         lib.setBanner(dataSplit(splData[2:]),lib.prefDigit(pref),categoryValue)
@@ -197,10 +200,9 @@ for numb in tqdm(nData.splitlines()):          # Fayldaki melumatlari oxu
                         lib.setData(htmlNumb,dataSplit(splData[2:]),lib.prefDigit(pref),categoryValue)
 
             htmlNumb+=1                                              # Nomre siralamasi
-
+print(allNumbText)
 print("\nÜmumi nömrə sayı: "+str(htmlNumb))
 print("\nFaylın adresi: "+fileName[fileNameIndex])
-# print(allNumbText)
 if(text):
     w.write(dataSplit(allNumbText))
 else:
