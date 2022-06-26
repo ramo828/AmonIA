@@ -1,4 +1,4 @@
-package javatool;
+package robot;
 import java.awt.AWTException;
 import java.awt.Desktop;
 import java.awt.Robot;
@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
-import javax.sound.sampled.SourceDataLine;
 
 /**
  *
@@ -182,18 +181,18 @@ public class browser {
     }
 
     private static void algo(Robot r) throws SQLException, IOException, AWTException, InterruptedException {
-
-        delay(100, false);              // 100 ms gozle
+        comm c = new comm();
+        delay(Integer.parseInt(c.config(1)), false);              // 100 ms gozle
         newTab(r);                      // Yeni tab ac
-        delay(100, false);              // 100 ms gozle
+        delay(Integer.parseInt(c.config(2)), false);              // 100 ms gozle
         sendKeys(r, sourceData, 50);    // Adresi daxil ele
-        delay(100, false);              // 100 ms gozle
+        delay(Integer.parseInt(c.config(3)), false);              // 100 ms gozle
         enter(r);                       // Enteri bas
-        delay(2, true);                 // 1 San gozle
+        delay(Integer.parseInt(c.config(4)), true);                 // 1 San gozle
         selectAll(r);                   // Butun mesaji sec
-        delay(300, false);              // 300 ms gozle
+        delay(Integer.parseInt(c.config(5)), false);              // 300 ms gozle
         copyAll(r);                     // Her seyi kopyala
-        delay(500, false);              // 500 ms gozle
+        delay(Integer.parseInt(c.config(6)), false);              // 500 ms gozle
         closeTab(r);                    // Tab bagla
     }
 
@@ -231,6 +230,7 @@ public class browser {
             SQLException {
             //###################################################
         int count = 0;              // Saygac
+        comm c = new comm();
         System.out.println("Robot calisdirilir");
         Robot r = new Robot();
         if (browserStatus) {        // True olduqda avtomatik brauzeri acir
@@ -258,20 +258,20 @@ public class browser {
                 break;
             }
 	    System.out.println("Addim: "+String.valueOf(count+stepStart));
-	    delay(200,false);
+	    delay(Integer.parseInt(c.config(7)),false);
 	    newMessageButton();                    // Yeni message
-	    delay(1100,false);					   // 
+	    delay(Integer.parseInt(c.config(8)),false);					   // 
 	    newMessageButton();			   // Fix  yeni message
 	    delay(10,false);
-            sendKeys(r, " " + findContact,200);    // ' ' +Metros
+            sendKeys(r, " " + findContact,Integer.parseInt(c.config(9)));    // ' ' +Metros
             step(stepStart + count, stepTime);     // Addimi her dongude bir artir
             enter(r);                              // Enter
-            delay(1, true);                        // 1 San gozle
+            delay(Integer.parseInt(c.config(10)), true);                        // 1 San gozle
             paste(r);                              // Clipboard'da olan datani yapisdir
-            delay(1, true);                        // 1 San gozle
+            delay(Integer.parseInt(c.config(11)), true);                        // 1 San gozle
             enter(r);                              // Enter
             count++;                               // Count deyiscenini her dongude bir artir
-	
+            delay(Integer.parseInt(c.config(12)),false);
         }
 
     }

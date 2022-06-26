@@ -80,6 +80,8 @@ void tutils::mainPY() {
 	"\n\t----------"
 	"\n\t7 - AvtoMesaj"
 	"\n\t----------"
+	"\n\t8 - AvtoMesaj Incə ayarlar"
+	"\n\t----------"
 	"\n\t0 - Exit\n>> ";
 	cin >> choise;
 	switch(choise) {
@@ -97,7 +99,9 @@ void tutils::mainPY() {
 				break;
 		case 6: inData();
 				break;
-		case 7: system("java javatool/Robo");
+		case 7: system("java robot/Robo");
+				break;
+		case 8: system("java robot/setting");
 				break;
 		default:
 				cout << "Bilinməyən əmr!" << endl;

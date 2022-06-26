@@ -200,7 +200,6 @@ for numb in tqdm(nData.splitlines()):          # Fayldaki melumatlari oxu
                         lib.setData(htmlNumb,dataSplit(splData[2:]),lib.prefDigit(pref),categoryValue)
 
             htmlNumb+=1                                              # Nomre siralamasi
-print(allNumbText)
 print("\nÜmumi nömrə sayı: "+str(htmlNumb))
 print("\nFaylın adresi: "+fileName[fileNameIndex])
 if(text):
