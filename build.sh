@@ -13,7 +13,7 @@ make -j $(nproc)
 echo "Lazimsiz fayllar silinir..."
 sleep 1
 echo "Java compile edilir."
-javac robot/Robo.java robot/browser.java robot/comm.java robot/setting.java
+javac robot/Robo.java robot/browser.java robot/comm.java robot/setting.java -deprecation -g -verbose
 rm CMakeFiles CMakeCache.txt Makefile cmake_install.cmake -rf
 
 
