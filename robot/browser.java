@@ -237,12 +237,14 @@ public class browser {
             if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
                 Desktop.getDesktop().browse(new URI(url));
             }
-            startTime += 10;       // Acilma muddetinden elave 10 saniyede elave et
+            startTime += 10;
+     	    // Acilma muddetinden elave 10 saniyede elave et
         }
         delay(startTime, true);
         if(algoStatus){
             if (!stopVar) {
-                algo(r);               // Algoritmi calisdir
+                algo(r);
+ 		// Algoritmi calisdir
             }
         }
         while (true) {
@@ -263,14 +265,23 @@ public class browser {
 	    delay(Integer.parseInt(c.config(8)),false);					   // 
 	    newMessageButton();			   // Fix  yeni message
 	    delay(10,false);
-            sendKeys(r, " " + findContact,Integer.parseInt(c.config(9)));    // ' ' +Metros
-            step(stepStart + count, stepTime);     // Addimi her dongude bir artir
+            sendKeys(r, " " + findContact,Integer.parseInt(c.config(9)));
+	    // ' ' +Metros
+            step(stepStart + count, stepTime);
+       	    // Addimi her dongude bir artir
+            enter(r);
+	    // Enter
+            delay(Integer.parseInt(c.config(10)), true);
+	sendKeys(r,"Salam\n",25);	    
+	    // 1 San gozle
+	    delay(100,false);
+            paste(r);
+	    // Clipboard'da olan datani yapisdir
+            delay(Integer.parseInt(c.config(11)), true);                        
+	    // 1 San gozle
             enter(r);                              // Enter
-            delay(Integer.parseInt(c.config(10)), true);                        // 1 San gozle
-            paste(r);                              // Clipboard'da olan datani yapisdir
-            delay(Integer.parseInt(c.config(11)), true);                        // 1 San gozle
-            enter(r);                              // Enter
-            count++;                               // Count deyiscenini her dongude bir artir
+            count++; 
+	    // Count deyiscenini her dongude bir artir
             delay(Integer.parseInt(c.config(12)),false);
         }
 
