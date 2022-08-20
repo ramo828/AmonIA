@@ -8,7 +8,13 @@ import json
 import parser as ps
 from colorama import Fore, Back, Style
 
-bKey ="Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJNQUlOIiwiZXhwIjoxNjUzMDAyODQ1fQ.zA2ibHv4fGfNlP_3AlcaGZ6ROuLLBBSLasYXlqna87YktQNXgY4XzYf5lTqLc-42YKbZse4alB3fwAE3ZuTAJw"
+key = [
+    # Bakcell
+    "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJNQUlOIiwiZXhwIjoxNjYyNjM2OTI1fQ.sqL5xgOiU1rmrAVBzm4xH7B9GrMYqqed-fda7pn7IlyrtMKUfSWnvBwaA-12-3fT8uLwBrUel9iSMpGQ-C6Gqw",
+    # Nar
+    "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI4MjQtMDAzOCIsImF1dGgiOiJQUkVQQUlES0lULFdUVFgsSVNQLERVUExJQ0FURSxSRUFDVElWQVRJT04sRFVQTElDQVRFX0ZVTExfQVVUT01BVElPTixSRVNUT1JBVElPTl9TQyxSRUFDVElWQVRJT05fRlVMTF9BVVRPTUFUSU9OLERBVEFfQlVORExFLFRQX0NIQU5HRSxSRUNIQVJHRV9MT0ciLCJleHAiOjE2NjEwMDE1MjF9.5DSr4kFJzk2EYyFmb_0nuU1x2jyJROlQf7zLpDGWT9mlk68UmRczChhEkYSgvPRCPUxJ1xszFna-DBXA2IZ8Rg",
+]
+
 category = dict()
 categoryKey = "sadə";                                      # Sade Nomreleri
 category["sadə"] = "1429263300716842758";                  # Sade key
@@ -65,6 +71,21 @@ cost099 = [
 prefG = ""
 cost = ""
 data = ""
+
+prestigeData = [
+    "",                  # Simple
+    "GENERAL",                         # All
+    "PRESTIGE",
+    "PRESTIGE1",
+    "PRESTIGE2",
+    "PRESTIGE3",
+    "PRESTIGE4",
+    "PRESTIGE5",
+    "PRESTIGE6",
+    "PRESTIGE7",
+]
+sizeNar = 2000
+
 
 def prefDigit(_data):
     if(_data == 55):
@@ -144,14 +165,22 @@ def toHTML1():
     dat1 = ps.getHtmlData(0)+data+ps.getHtmlData(2)+ps.getHtmlData(4)
     return dat1
 
-url = "https://public-api.azerconnect.az/msbkcposappreservation/api/freemsisdn-nomre/search";
 
-headers = {'content-type': 'application/json',          # Content type json
-'Accept':'application/json, text/plain, */*',           # Accept type json
-'Accept-Encoding':'gzip, deflate, br',                  # Encoding gzip compressed data
-'Accept-Language':'tr-TR,tr;q=0.9,az-TR;q=0.8,az;q=0.7,en-US;q=0.6,en;q=0.5',
-'Authorization':bKey,
-'Connection':'keep-alive'}
+url = dict()                                               # URL lugeti
+url["Bakcell"] = "https://public-api.azerconnect.az/msbkcposappreservation/api/freemsisdn-nomre/search"
+url["Nar"] = "https://public-api.azerconnect.az/msazfposapptrans/api/msisdn-search" 
+
+prefixNarData = ["70", "77"]
+
+
+def setHeader(opCode):
+    headers = {'content-type': 'application/json',         # Content type json
+    'Accept':'application/json, text/plain, */*',          # Accept type json
+    'Accept-Encoding':'gzip, deflate, br',                 # Encoding gzip compressed data
+    'Accept-Language':'tr-TR,tr;q=0.9,az-TR;q=0.8,az;q=0.7,en-US;q=0.6,en;q=0.5',
+     'Authorization': key[opCode],
+    'Connection':'keep-alive'}
+    return headers
 
 dataVcard = [
  "BEGIN:VCARD\n"
@@ -220,25 +249,25 @@ def readContactName():
 def setPrefix(_prefix,category):
     global categoryKey
     global prefix
-    if(_prefix == 55):
-        if(category == 0):
+    if(_prefix == "55"):
+        if(category == "0"):
             categoryKey = "sadə";                                         # Sade Nomreleri
-        elif(category == 1):
+        elif(category == "1"):
             categoryKey = "xüsusi2";                                      # Xususi 1 Nomreleri
-        elif(category == 2):
+        elif(category == "2"):
             categoryKey = "xüsusi1";                                      # Xususi 2 Nomreleri
         else:
             raise TypeError("Xətalı seçim!")
-    elif(_prefix == 99):
-        if(category == 0):
+    elif(_prefix == "99"):
+        if(category == "0"):
             categoryKey = "sadə099";                                    # Sade Nomreleri
-        elif(category == 1):
+        elif(category == "1"):
             categoryKey = "bürünc";                                     # buruc Nomreleri
-        elif(category == 2):
+        elif(category == "2"):
             categoryKey = "gümüş";                                      # Gumus Nomreleri
-        elif(category == 3):
+        elif(category == "3"):
             categoryKey = "qızıl";                                      # Qizil Nomreleri
-        elif(category == 4):
+        elif(category == "4"):
             categoryKey = "platin";                                     # Platin Nomreleri
         else:
             raise TypeError("Xətalı seçim!")
@@ -247,13 +276,13 @@ def setPrefix(_prefix,category):
 
 
 def conBakcell(page, number):
-    r = requests.get(url, params={"prefix":prefix,
+    r = requests.get(url['Bakcell'], params={"prefix":prefix,
     "msisdn":number,                                        # Nomre datasi
     "categoryId":category[categoryKey],                     # Kategorya
     "showReserved":"true",                                  # Sifaris verilenler
     "size":"2000",                                          # Maksimum nomre sayi
     "page":page},                                           # Maksimum sehife sayi
-    headers=headers)                                        # Header
+    headers=setHeader(0))                                   # Header
     return r
 
 def conv_numeric(counter):
@@ -290,3 +319,114 @@ def vcardWrite(w,contactName,prefix,pre,dataFour,count1):
 	+dataVcard[3]+prefix[pre]+dataFour[0:7]+"\n"
 	+dataVcard[4]
 	+dataVcard[5])
+
+
+# Nar 
+
+
+def setNarCategory(prestige_):
+    global prestige
+    prestige = prestigeData[int(prestige_)]
+
+
+def inputNumber(_number):
+    global number
+    number = _number
+
+
+def setNarPrefix(prefixNar_):
+    global prefixNar
+    prefixNar = prefixNarData[int(prefixNar_)]
+
+def narParams(page):                                      # Local Function
+    num = [
+    number[0],                                            # Split part1                                  
+    number[1],number[2],                                  # Split part2 
+    number[3],number[4],                                  # Split part3
+    number[5],number[6]]                                  # Split part4
+    params = {"prefix":prefixNar,
+        "a1":num[0].replace("x", ""),
+        "a2":num[1].replace("x", ""),
+        "a3":num[2].replace("x", ""),
+        "a4":num[3].replace("x", ""),
+        "a5":num[4].replace("x", ""),
+        "a6":num[5].replace("x", ""),
+        "a7":num[6].replace("x", ""),
+        "prestigeLevel":prestige,
+        "size":sizeNar,
+        "page":page }
+    return params
+
+def setHeader(opCode):
+    headers = {'content-type': 'application/json',         # Content type json
+    'Accept':'application/json, text/plain, */*',          # Accept type json
+    'Accept-Encoding':'gzip, deflate, br',                 # Encoding gzip compressed data
+    'Accept-Language':'tr-TR,tr;q=0.9,az-TR;q=0.8,az;q=0.7,en-US;q=0.6,en;q=0.5',
+     'Authorization': key[opCode],
+    'Connection':'keep-alive'}
+    return headers
+
+
+def conNar(page):
+    try:
+        params = narParams(page)
+        r = requests.get(url["Nar"],params=params,headers=setHeader(1), timeout=60)
+    except requests.ConnectionError as e:
+        print("İnternet bağlantınızda problem var! İnterneti yoxlayıb yenidən cəhd edin\n")
+        print(str(e))            
+    except requests.Timeout as e:
+        print("Zaman aşımı! Məlumatlar serverdən alına bilmir!")
+        print(str(e))
+    except requests.RequestException as e:
+        print("Ümumi xəta")
+        print(str(e))
+    except KeyboardInterrupt:
+        print("Program dəyandırıldı")
+    return r
+    
+
+
+def loadNarData(page):
+    narNumber = []
+    narCounter = 0
+    narTwo = ""
+    r = conNar(page)
+    if(len(r.text) > 7):
+        narData = json.loads(r.text)
+    elif(r.status_code != 200):
+        print("Key xətalıdır")
+        exit(1)
+    else:
+        return ""
+    for nar in narData:
+        narTwo = (nar["msisdn"])
+        narNumber.append(str(narTwo[3:]))
+        narCounter=narCounter+1
+    return narNumber
+ 
+def narPageCount():
+    meData = ""
+    page = 0
+    while True:
+        os.system("clear")
+        print("Böyük həcmli datalarda yüklənmə zaman ala bilər!\n")
+        print("Səhifə: {0}\n".format(page))
+        meData=loadNarData(page)
+        if(not meData):
+            break
+        else:
+            page+=1
+    return page
+
+def loadNarTotal(page):
+    totalNumb = 0
+    numberNar = []
+    try:
+        r = conNar(page)
+        totalJSON = json.loads(r.text)
+        for tData in totalJSON:
+            totalNumb = (tData["msisdn"])
+            numberNar.append(totalNumb)
+        return len(numberNar)
+    except TypeError:
+        print("Key xətalıdır!")

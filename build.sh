@@ -8,6 +8,7 @@ clear
 echo "Compile edilir..."
 sleep 1
 clear
+mkdir output
 cmake .
 make -j $(nproc)
 echo "Lazimsiz fayllar silinir..."

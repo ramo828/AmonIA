@@ -2,6 +2,8 @@ import lib
 from tqdm import tqdm
 import sys
 import csv
+import json
+import os
 
 if(sys.argv[1] == "html"):
     text = False
@@ -44,17 +46,52 @@ htmlNumb = 1                             # sira nomresi baslama
 
 def load(_number, prefix,category):
     global allNumb
+    loadCounter = 0
     lib.setPrefix(prefix,category)
     if(len(_number) == 7):
-        allNumb=lib.loadData(0,_number)
-        lib.green()
+        while(True):
+            if(not lib.loadData(loadCounter,_number)):
+                break
+            if(loadCounter != 0):
+                allNumb.extend(lib.loadData(loadCounter,_number))
+            else:
+                allNumb=lib.loadData(0,_number)
+            allNumb=lib.loadData(loadCounter,_number)
+            lib.green()
+            print("Səhifə sayı: "+str(loadCounter+1))
+            loadCounter+=1
+        print(_number)
+    else:
+        pass
+
+def loadNar(_number, _prefix, category):
+    loadCounter = 0
+    if(_prefix == "70"):
+        prefix = 0
+    elif(_prefix == "77"):
+        prefix = 1
+    global allNumb
+    lib.setNarPrefix(prefix)
+    lib.setNarCategory(category)
+    lib.inputNumber(_number)
+    if(len(_number) == 7):
+        while(True):
+            if(not lib.loadNarData(loadCounter)):
+                break
+            if(loadCounter != 0):
+                allNumb.extend(lib.loadNarData(loadCounter))
+            else:
+                allNumb=lib.loadNarData(0)
+            lib.green()
+            print("Səhifə sayı: "+str(loadCounter+1))
+            loadCounter+=1
         print(_number)
     else:
         pass
 
 try:
-    r = open("input/numbersIN.txt","r",encoding="UTF-8")
-    nData = r.read()
+    r = open("input/input.json","r")
+    nData = json.load(r)
 except FileNotFoundError:
     lib.red()
     print("Fayl Tapilmadi")
@@ -145,61 +182,37 @@ def counter(data):
     
     return len(ccl)
 
+latestData = nData["numbers"]
 
-
-for numb in tqdm(nData.splitlines()):          # Fayldaki melumatlari oxu
-    if(numb.find("[") != -1):                  # Eger [ varsa
-        if(numb.find("|") != -1):              # Eger | varsa
-            step=3                             # Eger | varsa 3 addim ireli get
-            endstep=5                          # ve son addimi 5'e ayarla
-            loadStep=2                         # Nomre datasinin son deyerini 2 addim artir
-            categoryValue = int(numb[1:2])     # Kategori deyeri
-        else:
-            step=1                             # deyilse addimi 1'e ayarla
-            endstep=3                          # son addimi 3 et 
-            loadStep=0                         # son deyeri 0 olaraq artir(deyisdirme)
-        pref = int(numb[step:endstep])         # prefix deyerini al
-        load(numb[endstep:10+loadStep],
-        pref,categoryValue)
-
-        prefN = lib.getConvData(lib.prefDigit(pref),categoryValue,0)
-        for splData in tqdm(allNumb):
-            if(len(splData) < 7):
-                pass
-            else:
-                if(text):
-                    allNumbText+="\n"+splData
-                else:
-                    if(banner):
-                        lib.setBanner(dataSplit(splData[2:]),lib.prefDigit(pref),categoryValue)
-                    elif(csv_bool):
-                        # catN = lib.getConvData(lib.prefDigit(pref),categoryValue,1)
-                        writeCSV("Metros "+str(htmlNumb),prefN,splData[2:])
-                    else:
-                        lib.setData(htmlNumb,dataSplit(splData[2:]),lib.prefDigit(pref),categoryValue)
-
-            htmlNumb+=1                                               # Nomre siralamasi
-
+for numb in tqdm(latestData):          # Fayldaki melumatlari oxu
+    pref = numb["prefix"]
+    categoryValue = numb["category"]
+    number = numb["number"]
+    if(pref == "70" or pref == "77"):
+        print("---NAR---")
+        loadNar(number, pref, categoryValue)
     else:
-        htmlNumb = 1
-        load(numb,"55",0)
-        for splData in tqdm(allNumb):
-            if(len(splData) < 7):
-                pass
+        print("---BAKCELL---")
+        load(number,pref,categoryValue)
+    prefN = lib.getConvData(lib.prefDigit(pref),categoryValue,0)
+    for splData in tqdm(allNumb):
+        if(len(splData) < 7):
+            pass
+        else:
+            if(text):
+                allNumbText+="\n"+splData
             else:
-                if(text):
-                        allNumbText+="\n"+splData
+                if(banner):
+                    lib.setBanner(dataSplit(splData[2:]),lib.prefDigit(pref),categoryValue)
+                elif(csv_bool):
+                    writeCSV("Metros "+str(htmlNumb),prefN,splData[2:])
                 else:
-                    if(banner):
-                        lib.setBanner(dataSplit(splData[2:]),lib.prefDigit(pref),categoryValue)
-                    elif(csv_bool):
-                        # catN = lib.getConvData(lib.prefDigit(pref),categoryValue,1)
-                        prefN = lib.getConvData(lib.prefDigit(pref),categoryValue,0)
-                        writeCSV("Metros "+str(htmlNumb),prefN,splData[2:])
-                    else:
-                        lib.setData(htmlNumb,dataSplit(splData[2:]),lib.prefDigit(pref),categoryValue)
+                    lib.setData(htmlNumb,dataSplit(splData[2:]),lib.prefDigit(pref),categoryValue)
 
-            htmlNumb+=1                                              # Nomre siralamasi
+        htmlNumb+=1                                               # Nomre siralamasi
+
+
+
 print("\nÜmumi nömrə sayı: "+str(htmlNumb))
 print("\nFaylın adresi: "+fileName[fileNameIndex])
 if(text):
