@@ -12,7 +12,7 @@ key = [
     # Bakcell
     "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJNQUlOIiwiZXhwIjoxNjYyNjM2OTI1fQ.sqL5xgOiU1rmrAVBzm4xH7B9GrMYqqed-fda7pn7IlyrtMKUfSWnvBwaA-12-3fT8uLwBrUel9iSMpGQ-C6Gqw",
     # Nar
-    "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI4MjQtMDAzOCIsImF1dGgiOiJQUkVQQUlES0lULFdUVFgsSVNQLERVUExJQ0FURSxSRUFDVElWQVRJT04sRFVQTElDQVRFX0ZVTExfQVVUT01BVElPTixSRVNUT1JBVElPTl9TQyxSRUFDVElWQVRJT05fRlVMTF9BVVRPTUFUSU9OLERBVEFfQlVORExFLFRQX0NIQU5HRSxSRUNIQVJHRV9MT0ciLCJleHAiOjE2NjEwMDE1MjF9.5DSr4kFJzk2EYyFmb_0nuU1x2jyJROlQf7zLpDGWT9mlk68UmRczChhEkYSgvPRCPUxJ1xszFna-DBXA2IZ8Rg",
+    "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI4MjQtMDAzOCIsImF1dGgiOiJQUkVQQUlES0lULFdUVFgsSVNQLERVUExJQ0FURSxSRUFDVElWQVRJT04sRFVQTElDQVRFX0ZVTExfQVVUT01BVElPTixSRVNUT1JBVElPTl9TQyxSRUFDVElWQVRJT05fRlVMTF9BVVRPTUFUSU9OLERBVEFfQlVORExFLFRQX0NIQU5HRSxSRUNIQVJHRV9MT0ciLCJleHAiOjE2NjE2MTAwMjZ9.xhdokVP8Ce3lUwC7qZ1SR-oETsC7ZWZ4EyzG3J-yCKnbapIvKzfveG62zrwgIlVG7-xqDMnvcn6AM_vw-i8tpQ",
 ]
 
 category = dict()
@@ -310,6 +310,18 @@ def loadData(page, number):
     for i2 in dataTwo:
         dataFour.append(str(i2["msisdn"]))
     return dataFour
+
+def loadTotal(number):
+    totalNumb = 0
+    try:
+        r = conBakcell(0,number)
+        totalJSON = json.loads(r.text)
+        for tData in totalJSON:
+            totalNumb = int((tData["totalElements"]))
+        return totalNumb
+    except TypeError:
+        red()
+        print("Key xətalıdır!")
 
 def vcardWrite(w,contactName,prefix,pre,dataFour,count1):
     w.write(

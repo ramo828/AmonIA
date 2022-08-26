@@ -1,9 +1,10 @@
 import lib
 from tqdm import tqdm
 import sys
-import csv
 import json
 import os
+import math
+import parser as ps
 
 if(sys.argv[1] == "html"):
     text = False
@@ -26,7 +27,7 @@ else:
     banner = False
     csv_bool = False
 
-allNumb = ""
+allNumb = []
 allNumbText = ""
 nData = ""
 fileName = [
@@ -48,17 +49,15 @@ def load(_number, prefix,category):
     global allNumb
     loadCounter = 0
     lib.setPrefix(prefix,category)
+
+    rawNumber = lib.loadTotal(_number)/2000
+    number = math.ceil(rawNumber)
     if(len(_number) == 7):
-        while(True):
-            if(not lib.loadData(loadCounter,_number)):
-                break
-            if(loadCounter != 0):
-                allNumb.extend(lib.loadData(loadCounter,_number))
-            else:
-                allNumb=lib.loadData(0,_number)
-            allNumb=lib.loadData(loadCounter,_number)
-            lib.green()
-            print("Səhifə sayı: "+str(loadCounter+1))
+        for sehifeninSayi in range(number):
+            if(number > 1):
+                os.system("clear")
+                print("Səhifə sayı: {}".format(loadCounter+1))
+            allNumb.extend(lib.loadData(loadCounter,_number))
             loadCounter+=1
         print(_number)
     else:
@@ -75,17 +74,15 @@ def loadNar(_number, _prefix, category):
     lib.setNarCategory(category)
     lib.inputNumber(_number)
     if(len(_number) == 7):
-        while(True):
-            if(not lib.loadNarData(loadCounter)):
+         while(True):
+            allNumb.extend(lib.loadNarData(loadCounter))
+            if(lib.loadNarTotal(loadCounter) < 1):
                 break
-            if(loadCounter != 0):
-                allNumb.extend(lib.loadNarData(loadCounter))
-            else:
-                allNumb=lib.loadNarData(0)
+            else:    
+                print("Səhifə sayı: {}".format(loadCounter+1))
+                
             lib.green()
-            print("Səhifə sayı: "+str(loadCounter+1))
             loadCounter+=1
-        print(_number)
     else:
         pass
 
@@ -114,66 +111,10 @@ def dataSplit(data):
     return data0
 
 if(csv_bool):
-    csv_out = csv.writer(w, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-    csv_out.writerow(['Name', 'Given Name', 'Additional Name', 'Family Name', 'Yomi Name',
-       'Given Name Yomi', 'Additional Name Yomi', 'Family Name Yomi',
-       'Name Prefix', 'Name Suffix', 'Initials', 'Nickname', 'Short Name',
-       'Maiden Name', 'Birthday', 'Gender', 'Location', 'Billing Information',
-       'Directory Server', 'Mileage', 'Occupation', 'Hobby', 'Sensitivity',
-       'Priority', 'Subject', 'Notes', 'Language', 'Photo', 'Group Membership',
-       'Phone 1 - Type', 'Phone 1 - Value', 'Phone 2 - Type',
-       'Phone 2 - Value', 'Organization 1 - Type', 'Organization 1 - Name',
-       'Organization 1 - Yomi Name', 'Organization 1 - Title',
-       'Organization 1 - Department', 'Organization 1 - Symbol',
-       'Organization 1 - Location', 'Organization 1 - Job Description'])
+    ps.CSV_writer(w)
 else:
     pass
 
-def writeCSV(_name,_pref,_data):
-
-    csv_out.writerow([
-    _name, #0
-    _name, #1
-    '',    #2
-    '',    #3
-    '',    #4
-    '',    #5
-    '',    #6
-    '',    #7
-    '',    #8
-    '',    #9
-    '',    #10
-    '',    #11
-    '',    #12
-    '',    #13
-    '',    #14
-    '',    #15
-    '',    #16
-    '',    #17
-    '',    #18
-    '',    #19
-    '',    #20
-    '',    #21
-    '',    #22
-    '',    #23
-    '',    #24
-    '',    #25
-    '',    #26
-    '',    #27
-    '* myContacts',    #28
-    'Mobile',          #29
-    _pref+_data,       #30
-    '',    #31
-    '',    #32
-    '',    #33
-    '',    #34
-    '',    #35
-    '',    #36
-    '',    #37
-    '',    #38
-    '',    #39
-    '',    #40
-    ])
 
 def counter(data):
     ccl = []
@@ -194,22 +135,23 @@ for numb in tqdm(latestData):          # Fayldaki melumatlari oxu
     else:
         print("---BAKCELL---")
         load(number,pref,categoryValue)
-    prefN = lib.getConvData(lib.prefDigit(pref),categoryValue,0)
-    for splData in tqdm(allNumb):
-        if(len(splData) < 7):
-            pass
-        else:
-            if(text):
-                allNumbText+="\n"+splData
-            else:
-                if(banner):
-                    lib.setBanner(dataSplit(splData[2:]),lib.prefDigit(pref),categoryValue)
-                elif(csv_bool):
-                    writeCSV("Metros "+str(htmlNumb),prefN,splData[2:])
-                else:
-                    lib.setData(htmlNumb,dataSplit(splData[2:]),lib.prefDigit(pref),categoryValue)
 
-        htmlNumb+=1                                               # Nomre siralamasi
+prefN = lib.getConvData(lib.prefDigit(pref),categoryValue,0)
+for splData in tqdm(allNumb):
+    if(len(splData) < 7):
+        pass
+    else:
+        if(text):
+            allNumbText+="\n"+splData
+        else:
+            if(banner):
+                lib.setBanner(dataSplit(splData[2:]),lib.prefDigit(pref),categoryValue)
+            elif(csv_bool):
+                ps.writeCSV("Metros "+str(htmlNumb),prefN,splData[2:])
+            else:
+                lib.setData(htmlNumb,dataSplit(splData[2:]),lib.prefDigit(pref),categoryValue)
+
+    htmlNumb+=1                                               # Nomre siralamasi
 
 
 

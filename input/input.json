@@ -1,79 +1,15 @@
 {
   "numbers": [
     {
-      "prefix": "55",
+      "prefix": "70",
       "category": "0",
-      "number": "775xxx1"
+      "number": "57xxxx4"
     },
     {
-      "prefix": "99",
+      "prefix": "77",
       "category": "0",
-      "number": "774xx14"
-    },
-    {
-      "prefix": "55",
-      "category": "0",
-      "number": "655xxx1"
-    },
-    {
-      "prefix": "99",
-      "category": "0",
-      "number": "7xx42x1"
-    },
-    {
-      "prefix": "55",
-      "category": "0",
-      "number": "65414xx"
-    },
-    {
-      "prefix": "99",
-      "category": "1",
-      "number": "7x55xx1"
-    },
-    {
-      "prefix": "55",
-      "category": "0",
-      "number": "6x5x5x1"
-    },
-    {
-      "prefix": "99",
-      "category": "1",
-      "number": "7xx48x1"
-    },
-    {
-      "prefix": "55",
-      "category": "0",
-      "number": "600xxx1"
-    },
-    {
-      "prefix": "99",
-      "category": "1",
-      "number": "7x62xx1"
-    },
-    {
-      "prefix": "55",
-      "category": "0",
-      "number": "855xxx1"
-    },
-    {
-      "prefix": "99",
-      "category": "1",
-      "number": "2x11xx1"
-    },
-    {
-      "prefix": "55",
-      "category": "0",
-      "number": "325xxx1"
-    },
-    {
-      "prefix": "99",
-      "category": "1",
-      "number": "7x924x1"
-    },
-    {
-      "prefix": "55",
-      "category": "0",
-      "number": "699xx24"
+      "number": "xxxxx14"
     }
+    
   ]
 }
