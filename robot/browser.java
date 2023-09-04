@@ -209,6 +209,15 @@ public class browser {
 
     }
 
+    private static void Tab()  throws AWTException, InterruptedException{
+        Robot r = new Robot();
+	    for (int j = 0; j<3; j++){
+		    delay(1000, false);
+         	r.keyPress(KeyEvent.VK_TAB);
+            r.keyRelease(KeyEvent.VK_TAB);
+		    }
+    }
+
     private static void enter(Robot r) {
         r.keyPress(KeyEvent.VK_ENTER);
         r.keyRelease(KeyEvent.VK_ENTER);
@@ -265,8 +274,12 @@ public class browser {
 	    delay(Integer.parseInt(c.config(8)),false);					   // 
 	    newMessageButton();			   // Fix  yeni message
 	    delay(10,false);
+
             sendKeys(r, " " + findContact,Integer.parseInt(c.config(9)));
 	    // ' ' +Metros
+            delay(1, false);
+            Tab();
+            delay(1, false);
             step(stepStart + count, stepTime);
        	    // Addimi her dongude bir artir
             enter(r);
