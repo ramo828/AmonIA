@@ -1,4 +1,5 @@
 import csv
+import random
 dataFile = open(".config/html.dat","r") # Fayli oxuma modunda ac
 
 data = dataFile.read()                  # Fayli oxu
@@ -74,3 +75,22 @@ def writeCSV(_name,_pref,_data):
     '',    #39
     '',    #40
     ])
+
+
+
+# Geçerli numara prefixleri
+prefixler = ["+99455", "+99499", "+99450", "+99451", "+99410", "+99470", "+99477"]
+
+def generate_vcf_with_prefix(number):
+    # Rastgele bir isim oluştur
+
+    # Her prefix için bir VCF metni oluştur
+    vcf_list = []
+    for prefix in prefixler:
+        ad = "".join(random.choice("abcdefghijklmnopqrstuvwxyz") for _ in range(5))
+        full_number = f"{prefix}{number}"
+        vcf = f"BEGIN:VCARD\nVERSION:2.1\nN:{ad};;;\nTEL:{full_number}\nEND:VCARD"
+        vcf_list.append(vcf)
+
+    return vcf_list
+

@@ -74,13 +74,15 @@ void tutils::mainPY() {
 	"\n\t----------"
 	"\n\t4 - Numerator (CSV)"
 	"\n\t----------"
-	"\n\t5 - Auto Serializer"
+	"\n\t5 - Numerator (VCF)"
 	"\n\t----------"
-	"\n\t6 - Siyahı hazırla"
+	"\n\t6 - Auto Serializer"
 	"\n\t----------"
-	"\n\t7 - AvtoMesaj"
+	"\n\t7 - Siyahı hazırla"
 	"\n\t----------"
-	"\n\t8 - AvtoMesaj Incə ayarlar"
+	"\n\t8 - AvtoMesaj"
+	"\n\t----------"
+	"\n\t9 - AvtoMesaj Incə ayarlar"
 	"\n\t----------"
 	"\n\t0 - Exit\n>> ";
 	cin >> choise;
@@ -95,13 +97,15 @@ void tutils::mainPY() {
 				break;
 		case 4: runPY("pyapp/aserial.py csv");
 				break;
-		case 5: runPY("pyapp/numerator.py");
+		case 5: runPY("pyapp/aserial.py vcf");
 				break;
-		case 6: inData();
+		case 6: runPY("pyapp/numerator.py");
 				break;
-		case 7: system("java robot/Robo");
+		case 7: inData();
 				break;
-		case 8: system("java robot/setting");
+		case 8: system("java robot/Robo");
+				break;
+		case 9: system("java robot/setting");
 				break;
 		default:
 				cout << "Bilinməyən əmr!" << endl;

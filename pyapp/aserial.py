@@ -10,18 +10,31 @@ if(sys.argv[1] == "html"):
     text = False
     banner = False
     csv_bool = False
+    vcf = False
+
 elif(sys.argv[1] == "html1"):
     text = False
     csv_bool = False
     banner = True
+    vcf = False
+
 elif(sys.argv[1] == "csv"):
     text = False
     banner = False
     csv_bool = True
+    vcf = False
+
 elif(sys.argv[1] == "txt"):
     text = True
     banner = False
     csv_bool = False
+    vcf = False
+
+elif(sys.argv[1] == "vcf"):
+    text = False
+    banner = False
+    csv_bool = False
+    vcf = True
 else:
     text = True
     banner = False
@@ -34,6 +47,7 @@ fileName = [
     'output/numbersOUT.txt',
     'output/numbersOUT.html',
     'output/numbersOUT.csv',
+    'output/numbersOUT.vcf',
 
 ]
 fileNameIndex = 0
@@ -96,6 +110,8 @@ if(text):
     fileNameIndex = 0
 elif(csv_bool):
     fileNameIndex = 2
+elif(vcf):
+    fileNameIndex = 3
 else:
     fileNameIndex = 1
 
@@ -148,6 +164,10 @@ for splData in tqdm(allNumb):
                 lib.setBanner(dataSplit(splData[2:]),lib.prefDigit(pref),categoryValue)
             elif(csv_bool):
                 ps.writeCSV("Metros "+str(htmlNumb),prefN,splData[2:])
+            elif(vcf):
+                vcf_file =  ps.generate_vcf_with_prefix(splData[2:])
+                for vcf_split in vcf_file:
+                    w.write(vcf_split+"\n")
             else:
                 lib.setData(htmlNumb,dataSplit(splData[2:]),lib.prefDigit(pref),categoryValue)
 
