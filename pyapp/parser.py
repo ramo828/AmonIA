@@ -78,19 +78,35 @@ def writeCSV(_name,_pref,_data):
 
 
 
-# Geçerli numara prefixleri
 prefixler = ["+99455", "+99499", "+99450", "+99451", "+99410", "+99470", "+99477"]
 
-def generate_vcf_with_prefix(number):
-    # Rastgele bir isim oluştur
 
-    # Her prefix için bir VCF metni oluştur
+def alphabetical_order(counter:int):
+    alph_name = ""
+    if(counter <= 10):
+        alph_name = "_A{0}".format(counter)
+    elif(counter > 10 and counter <= 100):
+        alph_name = "_B{0}".format(counter)
+    elif(counter > 100 and counter <= 1000):
+        alph_name = "_C{0}".format(counter)
+    elif(counter > 1000 and counter <= 10000):
+        alph_name = "_D{0}".format(counter)
+    else:
+        alph_name = "_E{0}".format(counter)
+    return alph_name
+
+
+
+counter = 0
+
+def generate_vcf_with_prefix(number):
+    name = "Metros"
+    global counter
     vcf_list = []
     for prefix in prefixler:
-        ad = "".join(random.choice("abcdefghijklmnopqrstuvwxyz") for _ in range(5))
         full_number = f"{prefix}{number}"
-        vcf = f"BEGIN:VCARD\nVERSION:2.1\nN:{ad};;;\nTEL:{full_number}\nEND:VCARD"
+        vcf = f"BEGIN:VCARD\nVERSION:2.1\nN:{name}{alphabetical_order(counter)};;;\nTEL:{full_number}\nEND:VCARD"
         vcf_list.append(vcf)
-
+        counter+=1
     return vcf_list
 
