@@ -202,6 +202,8 @@ public class browser {
     ) throws AWTException, InterruptedException {
         Robot r = new Robot();
         for (int i = 0; i < stp; i++) {
+            if(i == 1)
+                continue;
             delay(second, false);
             r.keyPress(KeyEvent.VK_DOWN);
             r.keyRelease(KeyEvent.VK_DOWN);
@@ -272,23 +274,25 @@ public class browser {
 	    delay(Integer.parseInt(c.config(7)),false);
 	    newMessageButton();                    // Yeni message
 	    delay(Integer.parseInt(c.config(8)),false);					   // 
-	    newMessageButton();			   // Fix  yeni message
+	    // newMessageButton();			   // Fix  yeni message
 	    delay(10,false);
 
             sendKeys(r, " " + findContact,Integer.parseInt(c.config(9)));
 	    // ' ' +Metros
             delay(1, false);
             Tab();
+           
             delay(1, false);
             step(stepStart + count, stepTime);
        	    // Addimi her dongude bir artir
+            delay(2, false);
             enter(r);
 	    // Enter
-            delay(Integer.parseInt(c.config(10)), true);
-	sendKeys(r,"Salam\n",25);	    
+        delay(Integer.parseInt(c.config(10)), true);
+	    sendKeys(r,"Salam\n",25);	    
 	    // 1 San gozle
 	    delay(100,false);
-            paste(r);
+        paste(r);
 	    // Clipboard'da olan datani yapisdir
             delay(Integer.parseInt(c.config(11)), true);                        
 	    // 1 San gozle
